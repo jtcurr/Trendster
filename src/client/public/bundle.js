@@ -57,9 +57,9 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _AwesomeComponent = __webpack_require__(/*! ./AwesomeComponent.jsx */ 183);
+	var _SearchComponent = __webpack_require__(/*! ./SearchComponent.jsx */ 183);
 	
-	var _AwesomeComponent2 = _interopRequireDefault(_AwesomeComponent);
+	var _SearchComponent2 = _interopRequireDefault(_SearchComponent);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -85,11 +85,16 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Trendster'
+	        ),
+	        _react2.default.createElement(
 	          'p',
 	          null,
-	          ' Hello React!'
+	          'Catchy Slogan!'
 	        ),
-	        _react2.default.createElement(_AwesomeComponent2.default, null)
+	        _react2.default.createElement(_SearchComponent2.default, null)
 	      );
 	    }
 	  }]);
@@ -22378,9 +22383,9 @@
 
 /***/ },
 /* 183 */
-/*!*********************************************!*\
-  !*** ./src/client/app/AwesomeComponent.jsx ***!
-  \*********************************************/
+/*!********************************************!*\
+  !*** ./src/client/app/SearchComponent.jsx ***!
+  \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22403,54 +22408,65 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var AwesomeComponent = function (_React$Component) {
-	  _inherits(AwesomeComponent, _React$Component);
+	var SearchComponent = function (_React$Component) {
+	  _inherits(SearchComponent, _React$Component);
 	
-	  function AwesomeComponent(props) {
-	    _classCallCheck(this, AwesomeComponent);
+	  function SearchComponent(props) {
+	    _classCallCheck(this, SearchComponent);
 	
-	    var _this = _possibleConstructorReturn(this, (AwesomeComponent.__proto__ || Object.getPrototypeOf(AwesomeComponent)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SearchComponent.__proto__ || Object.getPrototypeOf(SearchComponent)).call(this, props));
 	
-	    _this.state = { likesCount: 0 };
-	    _this.onLike = _this.onLike.bind(_this);
+	    _this.state = {
+	      location: 'San Francisco CA',
+	      keyword: 'resteraunts'
+	    };
 	    return _this;
 	  }
 	
-	  _createClass(AwesomeComponent, [{
-	    key: 'onLike',
-	    value: function onLike() {
-	      var newLikesCount = this.state.likesCount + 1;
-	      this.setState({ likesCount: newLikesCount });
+	  // onLike () {
+	  //   let newLikesCount = this.state.likesCount + 1;
+	  //   this.setState({likesCount: newLikesCount});
+	  // }
+	
+	
+	  _createClass(SearchComponent, [{
+	    key: 'onSearch',
+	    value: function onSearch(e) {
+	      e.preventDefault();
+	      console.log('yues');
+	      console.log(this.refs.value.value);
+	      // make some sort of ajax request to specified server routes, passing in keyword as data
+	      //object{location: xxx, keyword: yyy}
+	      console.log(e.target.value);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Likes : ',
 	        _react2.default.createElement(
-	          'span',
-	          null,
-	          this.state.likesCount
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
+	          'form',
+	          { onSubmit: function onSubmit(e) {
+	              _this2.onSearch(e);
+	            } },
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'What are you looking for?', ref: 'value' }),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.onLike },
-	            'Like Me'
+	            { type: 'submit' },
+	            'Submit'
 	          )
 	        )
 	      );
 	    }
 	  }]);
 	
-	  return AwesomeComponent;
+	  return SearchComponent;
 	}(_react2.default.Component);
 	
-	exports.default = AwesomeComponent;
+	exports.default = SearchComponent; //{}
 
 /***/ }
 /******/ ]);
