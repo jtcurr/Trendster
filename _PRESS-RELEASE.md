@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Trendster
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Trendster lets you know what is currently trending in the city and gives you the resources to jump in. 
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Trendster shows you what is growing in popularity in your city and helps you get involved. Whether you are looking for the best restaurant or the hottest bar, you can see what is available and how it ranks versus similar venues. Trendster also sets you up with connections to resources that allow you to take advantage of the venue. 
 
 ## Problem ##
   > Describe the problem your product solves.
+  Entering a new city can be hard and knowing what is currently trending can be even harder. Trendster give you immediate access to what is becoming popular and gets you involved.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  Trendster gives you a snapshot of what is hot and what is dying out. It also makes it quick and easy to make plans at the venue of your choosing.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  "Getting you to the hot spots."
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Trendster takes three easy steps. First, log in to see your personal search history and profile. Second, search for the category that you want to see trends in. Lastly, choose a resource that lets you interact with the venue that you decided on.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "I wept with joy when I saw Trendster for the first time. It was like the first time I heard the Beatles. I no longer waste time searching for the hippest joints."
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Don't become outdated. Stay in touch with what is trending now with Trendster. You can visit our site at _______________ to see what is becoming popular in you city.
