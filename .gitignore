@@ -2,5 +2,8 @@ node_modules/
 bower_components/
 *.log
 
+## API keys ##
+server/FourSquare/config/apiKeys.js
+
 build/
 dist/
