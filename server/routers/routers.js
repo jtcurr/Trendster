@@ -1,6 +1,6 @@
 var express = require('express');
 var requestPromise = require('request-promise');
-var keys = require('../fourSquare/apiKeys.js');
+var keys = require('../fourSquare/config/apiKeys.js');
 var router = express.Router();
 
 
