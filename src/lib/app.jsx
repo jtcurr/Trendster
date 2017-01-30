@@ -1,7 +1,8 @@
+
 import React from 'react';
 import {render} from 'react-dom';
 import SearchComponent from './SearchComponent.jsx';
-import MapComponent from './MapComponent.jsx';
+import MapComponent from './index.jsx';
 
 class App extends React.Component {
   render () {
