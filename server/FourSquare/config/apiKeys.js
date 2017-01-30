@@ -7,7 +7,7 @@ module.exports.client_Secret = 'W5YTWEHLLGXCKKCCQXZHUWWMKP1110R4DPVNCLXZOSAVMBJA
 
 // app.get('/map', function(req, res) {
 //   console.log('here');
-//   request("https://maps.googleapis.com/maps/api/js?key=AIzaSyAhciEsWzSnzUfMBUMBkdkb6sjjl6Chp1k&callback=initMap")
+//   request("https://maps.sgoogleapis.com/maps/api/js?key=AIzaSyAhciEsWzSnzUfMBUMBkdkb6sjjl6Chp1k&callback=initMap")
 //   .on('response', function(response) {
 //     console.log('statusCode', response.statusCode);
 //     res.send(response);

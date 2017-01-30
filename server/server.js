@@ -26,7 +26,7 @@ user.save();
 
 
 app.get('/', function(req, res) {
-  res.send('Hiii')
+  res.send('Hiii');
 });
 
 
