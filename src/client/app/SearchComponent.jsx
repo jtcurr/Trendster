@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 class SearchComponent extends React.Component {
 
@@ -10,25 +11,25 @@ class SearchComponent extends React.Component {
     };
   }
 
-  // onLike () {
-  //   let newLikesCount = this.state.likesCount + 1;
-  //   this.setState({likesCount: newLikesCount});
-  // }
   onSearch(e) {
     e.preventDefault();
-    console.log('yues');
-    console.log(this.refs.value.value);
-    // make some sort of ajax request to specified server routes, passing in keyword as data
-    //object{location: xxx, keyword: yyy}
-    console.log(e.target.value);
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      success: function (res){
+        conosle.log(res);
+      },
+      error: function (err) {
+        console.log('Error posting search function')
+      }
+    })
   }
-
 
   render() {
     return (
       <div>
         <form onSubmit={ (e) => {this.onSearch(e)} }>
-          <input type='text' placeholder='What are you looking for?' ref='value' />
+          <input type='text' placeholder='What are you looking for?' ref='keyword' />
           <button type='submit'>Submit</button>
         </form>
       </div>

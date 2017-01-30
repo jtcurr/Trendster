@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "webpack -d --watch",
-    "build" : "webpack -p"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "express-partials": "^0.3.0",
     "express-session": "^1.13.0",
     "is-property": "^1.0.2",
+    "jquery": "^3.1.1",
     "mongoose": "^4.7.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
