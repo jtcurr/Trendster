@@ -37,3 +37,4 @@ class MapComponent extends React.Component {
   	)
   }
 }
+export default MapComponent;
