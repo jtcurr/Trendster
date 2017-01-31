@@ -23,11 +23,8 @@ var users = mongoose.model('users', trySchema);
 var user = new users({name:'Max', age:'24'});
 user.save();
 
-
-
 app.get('/', function(req, res) {
   res.send('Hiii');
 });
-
 
 app.listen(8000);
