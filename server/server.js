@@ -29,6 +29,7 @@ var user = new users({name:'Max', age:'24'});
 user.save();
 
 app.get('/', function(req, res) {
+	res.redirect('/api/menus');
   res.render('../index.html');
 });
 

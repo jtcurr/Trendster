@@ -1,26 +1,27 @@
 import React from 'react';
-import $ from 'jquery';
 
 class SearchComponent extends React.Component {
 
-  constructor({searchFunc}) {
-    super({searchFunc});
+  constructor(props) {
+    super(props);
     this.state = {
       location: 'San Francisco CA',
       keyword: 'restaurants'
     };
   }
-
-  render() {
-    return (
-      <div>
-        <form onSubmit={ (e) => {searchFunc(e).bind(this)} }>
-          <input type='text' placeholder='What are you looking for?' ref='keyword' />
-          <button type='submit'>Submit</button>
-        </form>
-      </div>
-    );
-  }
+ 
+   render() {
+     return (
+       <div>
+         <form onSubmit={ (e) => {this.props.searchFunc(e, this.refs.keyword.value, this.refs.location.value)} }>
+           <input type='text' placeholder='Where are you?' ref='location' />
+           <br></br>
+           <input type='text' placeholder='What are you looking for?' ref='keyword' />
+           <button type='submit'>Submit</button>
+         </form>
+       </div>
+     );
+   }
 
 }
 
