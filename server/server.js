@@ -4,12 +4,17 @@ var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var routing = require('./routers/routers.js');
+var path = require('path');
 
 mongoose.connect('mongodb://localhost/greenfield');
 var db = mongoose.connection;
 var app = express();
 
-app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/../src/client');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+app.use(express.static(__dirname + '/../src/client'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(routing);
@@ -24,9 +29,9 @@ var user = new users({name:'Max', age:'24'});
 user.save();
 
 app.get('/', function(req, res) {
-  res.send('Hiii');
+  res.render('../index.html');
 });
 
-app.listen(8000, function() {
-  console.log('listening on port 8000');
+app.listen(8080, function() {
+  console.log('listening on port 8080');
 });
