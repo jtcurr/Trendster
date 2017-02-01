@@ -10,9 +10,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       city: {lat:-25, lng: 131},
-      listOfRestaurants: [{name:'House of prime Rib'},
-                          {name:'Boulevard'},
-                          {name:'La Mar'}]
+      listOfVenues: [{name:'House of prime Rib', location: {city: 'SF'}},
+                          {name:'Boulevard', location: {city: 'SF'}},
+                          {name:'La Mar', location: {city: 'Embaracadero'}}]
     }
   }
 
@@ -29,10 +29,10 @@ class App extends React.Component {
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
       success: function (res){
-        console.log('response', JSON.parse(res).response.venues);
+        res = JSON.parse(res);
         context.setState({
-          city: res.city,
-          listOfRestaurants: res.listOfRestaurants
+          city: location,
+          listOfVenues: res.response.venues
         });
       },
       error: function (err) {
@@ -47,7 +47,7 @@ class App extends React.Component {
         <h1>Trendster</h1>
         <p>Catchy Slogan!</p>
         <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
-        <ListComponent list={this.state.listOfRestaurants}/>
+        <ListComponent list={this.state.listOfVenues}/>
       </div>
     );
   }

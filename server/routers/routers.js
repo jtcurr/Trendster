@@ -10,12 +10,10 @@ var params = 'near=';
 var auth = '&client_id='+keys.client_Id+'&client_secret='+ keys.client_Secret+'&v=20170129'+'&query=';
 
 router.post('/api/menus', function(req, res) {
-	var location = req.body.location.split(' ').join('');
+	var location = req.body.location.split(' ').join('+');
 	var query = req.body.keyword.split(' ').join('');
 
   requestPromise(baseUrl+endPoint+params+location+auth+query).then(function(data) {
-    // data = JSON.parse(data);
-    //console.log('----------------', data.response.venues);
     res.send(data);
   }).catch(function(err) {
     console.log(err);

@@ -9444,10 +9444,12 @@ module.exports = ReactPropTypesSecret;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _ListEntry = __webpack_require__(182);
+
+var _ListEntry2 = _interopRequireDefault(_ListEntry);
 
 var _react = __webpack_require__(25);
 
@@ -9455,30 +9457,15 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ListComponent = function (_React$Component) {
-	_inherits(ListComponent, _React$Component);
-
-	function ListComponent(props) {
-		_classCallCheck(this, ListComponent);
-
-		return _possibleConstructorReturn(this, (ListComponent.__proto__ || Object.getPrototypeOf(ListComponent)).call(this, props));
-	}
-
-	_createClass(ListComponent, [{
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement('div', null);
-		}
-	}]);
-
-	return ListComponent;
-}(_react2.default.Component);
+var ListComponent = function ListComponent(props) {
+  return _react2.default.createElement(
+    'ul',
+    null,
+    props.list.map(function (venue, key) {
+      return _react2.default.createElement(_ListEntry2.default, { venueName: venue, key: key });
+    })
+  );
+};
 
 exports.default = ListComponent;
 
@@ -32139,7 +32126,7 @@ var App = function (_React$Component) {
 
     _this.state = {
       city: { lat: -25, lng: 131 },
-      listOfRestaurants: [{ name: 'House of prime Rib' }, { name: 'Boulevard' }, { name: 'La Mar' }]
+      listOfVenues: [{ name: 'House of prime Rib', location: { city: 'SF' } }, { name: 'Boulevard', location: { city: 'SF' } }, { name: 'La Mar', location: { city: 'Embaracadero' } }]
     };
     return _this;
   }
@@ -32159,10 +32146,10 @@ var App = function (_React$Component) {
         url: 'http://localhost:8080/api/menus',
         data: JSON.stringify(sendData),
         success: function success(res) {
-          console.log('response', JSON.parse(res).response.venues);
+          res = JSON.parse(res);
           context.setState({
-            city: res.city,
-            listOfRestaurants: res.listOfRestaurants
+            city: location,
+            listOfVenues: res.response.venues
           });
         },
         error: function error(err) {
@@ -32187,7 +32174,7 @@ var App = function (_React$Component) {
           'Catchy Slogan!'
         ),
         _react2.default.createElement(_SearchComponent2.default, { searchFunc: this.searchForCity.bind(this) }),
-        _react2.default.createElement(_ListComponent2.default, { list: this.state.listOfRestaurants })
+        _react2.default.createElement(_ListComponent2.default, { list: this.state.listOfVenues })
       );
     }
   }]);
@@ -32199,6 +32186,43 @@ var App = function (_React$Component) {
 
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(25);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListEntry = function ListEntry(props, key) {
+  return _react2.default.createElement(
+    'li',
+    null,
+    props.venueName.name,
+    _react2.default.createElement(
+      'ul',
+      null,
+      _react2.default.createElement(
+        'li',
+        null,
+        props.venueName.location.city,
+        console.log(props)
+      )
+    )
+  );
+};
+
+exports.default = ListEntry;
 
 /***/ })
 /******/ ]);
