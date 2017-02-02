@@ -10,7 +10,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       city: {lat:-25, lng: 131},
-      listOfVenues: []
+      listOfVenues: [],
+      imageObj: {}
     }
   }
   //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
@@ -26,10 +27,9 @@ class App extends React.Component {
       data: JSON.stringify(sendData),
       success: function (res) {
         //parse out response, limits response to 10 results
-        res = JSON.parse(res);
         context.setState({
           city: location,
-          listOfVenues: res.response.venues.slice(0, 10)
+          listOfVenues: JSON.parse(res).response.groups[0].items
         });
       },
       error: function (err) {
@@ -46,7 +46,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Trendster</h1>
-        <p>Catchy Slogan!</p>
+        <p></p>
         <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
         <MapDisplayComponent center={ location } />
         <ListComponent list={this.state.listOfVenues}/>

@@ -5,9 +5,10 @@ var router = express.Router();
 
 
 var baseUrl = 'https://api.foursquare.com/v2/';
-var endPoint = 'venues/search/?';
+var endPoint = 'venues/explore/?';
 var params = 'near=';
-var auth = '&client_id='+keys.client_Id+'&client_secret='+ keys.client_Secret+'&v=20170129'+'&query=';
+var photos = '&venuePhotos=1';
+var auth = '&client_id='+keys.client_Id+'&client_secret='+ keys.client_Secret+'&v=20170129'+'&limit=10'+'&query=';
 
 router.post('/api/menus', function(req, res) {
 	//if the location is two words, the foursquare api requires a '+' in between both words
@@ -15,7 +16,7 @@ router.post('/api/menus', function(req, res) {
 	//if the keyword is two words, the foursquare api requires it to be on string with no spaces
 	var query = req.body.keyword.split(' ').join('');
 
-  requestPromise(baseUrl+endPoint+params+location+auth+query).then(function(data) {
+  requestPromise(baseUrl+endPoint+params+location+photos+auth+query).then(function(data) {
     res.send(data);
   }).catch(function(err) {
     console.log(err);
