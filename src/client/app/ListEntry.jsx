@@ -3,11 +3,12 @@ import React from 'react';
 var ListEntry = (props, key) => {
 	return (
 		<li>
-      {props.venueName.name}
+      <a href={props.venueName.url}>{props.venueName.name}</a>
       <ul>
         <li>
-          {props.venueName.location.address}
-          {console.log(props)}
+          {props.venueName.location.address} <br></br>
+          <a>Trending Points {props.venueName.stats.checkinsCount}</a>
+          
         </li>
       </ul>
     </li>

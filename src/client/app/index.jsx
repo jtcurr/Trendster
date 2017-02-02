@@ -24,7 +24,7 @@ class App extends React.Component {
       contentType: 'application/json',
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
-      success: function (res){
+      success: function (res) {
         //parse out response, limits response to 10 results
         res = JSON.parse(res);
         context.setState({
