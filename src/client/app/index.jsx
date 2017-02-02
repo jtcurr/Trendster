@@ -1,7 +1,7 @@
 import React from 'react';
 import reactDOM from 'react-dom';
 import SearchComponent from './SearchComponent.jsx';
-import MapComponent from './MapComponent.jsx';
+import MapDisplayComponent from './MapDisplayComponent.jsx';
 import ListComponent from './ListComponent.jsx';
 import $ from 'jquery';
 
@@ -39,16 +39,21 @@ class App extends React.Component {
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
+    const location = {
+      lat: 37.7831708,
+      lng: -122.4100967
+    }
     return (
       <div>
         <h1>Trendster</h1>
         <p>Catchy Slogan!</p>
         <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
+        <MapDisplayComponent center={ location } />
         <ListComponent list={this.state.listOfVenues}/>
       </div>
     );
   }
 }
 
-// <MapComponent city={this.state.city} listOfRestaurants={this.state.listOfRestaurants}/>
+
 reactDOM.render(<App />, document.getElementById('app'));
