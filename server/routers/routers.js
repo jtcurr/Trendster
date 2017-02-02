@@ -10,7 +10,9 @@ var params = 'near=';
 var auth = '&client_id='+keys.client_Id+'&client_secret='+ keys.client_Secret+'&v=20170129'+'&query=';
 
 router.post('/api/menus', function(req, res) {
+	//if the location is two words, the foursquare api requires a '+' in between both words
 	var location = req.body.location.split(' ').join('+');
+	//if the keyword is two words, the foursquare api requires it to be on string with no spaces
 	var query = req.body.keyword.split(' ').join('');
 
   requestPromise(baseUrl+endPoint+params+location+auth+query).then(function(data) {

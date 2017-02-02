@@ -10,17 +10,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       city: {lat:-25, lng: 131},
-      listOfVenues: [{name:'House of prime Rib', location: {city: 'SF'}},
-                          {name:'Boulevard', location: {city: 'SF'}},
-                          {name:'La Mar', location: {city: 'Embaracadero'}}]
+      listOfVenues: []
     }
   }
-
+  //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
   searchForCity(e, keyword, location) {
     var context = this;
     e.preventDefault();
-    console.log(keyword);
-    console.log(location);
     var sendData ={ keyword: keyword,
         location: location}
     $.ajax({
@@ -29,10 +25,11 @@ class App extends React.Component {
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
       success: function (res){
+        //parse out response, limits response to 10 results
         res = JSON.parse(res);
         context.setState({
           city: location,
-          listOfVenues: res.response.venues
+          listOfVenues: res.response.venues.slice(0, 10)
         });
       },
       error: function (err) {
@@ -40,7 +37,7 @@ class App extends React.Component {
       }
     })
   }
-
+  //the return passes in the searchForCity function into search component to receive user data
   render () {
     return (
       <div>

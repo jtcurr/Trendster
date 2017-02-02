@@ -9,7 +9,7 @@ class SearchComponent extends React.Component {
       keyword: 'restaurants'
     };
   }
- 
+   //this takes in the keyword and location from the user and passes it up to the search func in index.jsx
    render() {
      return (
        <div>

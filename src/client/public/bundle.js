@@ -9574,6 +9574,8 @@ var SearchComponent = function (_React$Component) {
     };
     return _this;
   }
+  //this takes in the keyword and location from the user and passes it up to the search func in index.jsx
+
 
   _createClass(SearchComponent, [{
     key: 'render',
@@ -32126,18 +32128,18 @@ var App = function (_React$Component) {
 
     _this.state = {
       city: { lat: -25, lng: 131 },
-      listOfVenues: [{ name: 'House of prime Rib', location: { city: 'SF' } }, { name: 'Boulevard', location: { city: 'SF' } }, { name: 'La Mar', location: { city: 'Embaracadero' } }]
+      listOfVenues: []
     };
     return _this;
   }
+  //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
+
 
   _createClass(App, [{
     key: 'searchForCity',
     value: function searchForCity(e, keyword, location) {
       var context = this;
       e.preventDefault();
-      console.log(keyword);
-      console.log(location);
       var sendData = { keyword: keyword,
         location: location };
       _jquery2.default.ajax({
@@ -32146,10 +32148,11 @@ var App = function (_React$Component) {
         url: 'http://localhost:8080/api/menus',
         data: JSON.stringify(sendData),
         success: function success(res) {
+          //parse out response, limits response to 10 results
           res = JSON.parse(res);
           context.setState({
             city: location,
-            listOfVenues: res.response.venues
+            listOfVenues: res.response.venues.slice(0, 10)
           });
         },
         error: function error(err) {
@@ -32157,6 +32160,8 @@ var App = function (_React$Component) {
         }
       });
     }
+    //the return passes in the searchForCity function into search component to receive user data
+
   }, {
     key: 'render',
     value: function render() {
@@ -32204,6 +32209,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//takes the props from list component and adds a unordered list to hold the rest of the data of the venue
 var ListEntry = function ListEntry(props, key) {
   return _react2.default.createElement(
     'li',
@@ -32215,7 +32221,7 @@ var ListEntry = function ListEntry(props, key) {
       _react2.default.createElement(
         'li',
         null,
-        props.venueName.location.city,
+        props.venueName.location.address,
         console.log(props)
       )
     )
