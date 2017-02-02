@@ -10,10 +10,13 @@ class SearchComponent extends React.Component {
     };
   }
    //this takes in the keyword and location from the user and passes it up to the search func in index.jsx
+   //clears out the search bar after submission
    render() {
      return (
        <div>
-         <form onSubmit={ (e) => {this.props.searchFunc(e, this.refs.keyword.value, this.refs.location.value)} }>
+         <form onSubmit={ (e) => {this.props.searchFunc(e, this.refs.keyword.value, this.refs.location.value)
+          this.refs.keyword.value = ''
+          this.refs.location.value = ''} }>
            <input type='text' placeholder='Where are you?' ref='location' />
            <br></br>
            <input type='text' placeholder='What are you looking for?' ref='keyword' />
@@ -22,9 +25,6 @@ class SearchComponent extends React.Component {
        </div>
      );
    }
-
 }
 
-export default SearchComponent;//{}
-
-//is e or the binding going to cause a problem?
+export default SearchComponent;
