@@ -46,7 +46,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Trendster</h1>
-        <p>Catchy Slogan!</p>
+        <p></p>
         <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
         <MapDisplayComponent center={ location } />
         <ListComponent list={this.state.listOfVenues}/>
