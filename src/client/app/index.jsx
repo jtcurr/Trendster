@@ -3,6 +3,7 @@ import reactDOM from 'react-dom';
 import SearchComponent from './SearchComponent.jsx';
 import MapDisplayComponent from './MapDisplayComponent.jsx';
 import ListComponent from './ListComponent.jsx';
+import AddressComponent from './AddressComponent.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
@@ -18,6 +19,18 @@ class App extends React.Component {
       imageObj: {}
     }
   }
+
+  componentWillMount(coords, address) {
+    console.log('setting state...', coords, address);
+    location && address ? 
+    this.setState({
+      location: coords,
+      displayAddress: address
+    })
+    :
+    null;
+  }
+
   //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
   searchForCity(e, keyword, location) {
     var context = this;
@@ -35,10 +48,14 @@ class App extends React.Component {
       url: 'http://localhost:8080/api/menus/location',
       success: function(response) {
         console.log('google maps request success', response);
-        context.setState({
+
+        context.componentWillMount(response.coordinates, response.formalAddress);
+        
+        /*context.setState({
           location: response.coordinates,
           displayAddress: response.formalAddress
-        })
+        })*/
+
       },
       error: function(err) {
         console.log('error with google maps request', err);
@@ -52,10 +69,10 @@ class App extends React.Component {
       data: JSON.stringify(sendData),
       success: function (res) {
         //parse out response, limits response to 10 results
-        context.setState({
+        /*context.setState({
           location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items
-        });
+        }); */
       },
       error: function (err) {
         console.log('Error posting search function')
@@ -64,12 +81,13 @@ class App extends React.Component {
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
-
+    console.log('STATE =', this.state.location, this.state.displayAddress);
     return (
       <div>
         <h1>Trendster</h1>
         <p></p>
-        <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
+        <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>
+        <AddressComponent address= { this.state.displayAddress } />
         <MapDisplayComponent center={ this.state.location } />
         <ListComponent list={this.state.listOfVenues}/>
       </div>

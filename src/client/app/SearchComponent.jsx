@@ -12,7 +12,7 @@ class SearchComponent extends React.Component {
    //clears out the search bar after submission
    render() {
      return (
-       <div>
+       <div id='search'>
          <form onSubmit={ (e) => {this.props.searchFunc(e, this.refs.keyword.value, this.refs.location.value)
           this.refs.keyword.value = ''
           this.refs.location.value = ''} }>

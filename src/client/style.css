@@ -1,0 +1,13 @@
+body {
+	background-image: url("http://il8.picdn.net/shutterstock/videos/15059428/thumb/1.jpg");
+}
+h1, h3 {
+	font-family: Courier;
+	text-align: center;
+	color: #49fb35;
+}
+
+#search, #map {
+	width: 30%;
+	margin: 0 auto;
+}

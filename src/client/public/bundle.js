@@ -10103,10 +10103,6 @@ var MapDisplayComponent = function (_React$Component) {
   _createClass(MapDisplayComponent, [{
     key: 'render',
     value: function render() {
-      var location = {
-        lat: 37.7831708,
-        lng: -122.4100967
-      };
       var markers = [{
         location: {
           lat: 37.7831708,
@@ -10115,8 +10111,8 @@ var MapDisplayComponent = function (_React$Component) {
       }];
       return _react2.default.createElement(
         'div',
-        { style: { width: 600, height: 300, background: 'red' } },
-        _react2.default.createElement(_MapConfigComponent2.default, { center: location, markers: markers })
+        { id: 'map', style: { width: 600, height: 300, background: 'red' } },
+        _react2.default.createElement(_MapConfigComponent2.default, { center: this.props.center, markers: markers })
       );
     }
   }]);
@@ -10176,7 +10172,7 @@ var SearchComponent = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'search' },
         _react2.default.createElement(
           'form',
           { onSubmit: function onSubmit(e) {
@@ -36613,6 +36609,10 @@ var _ListComponent = __webpack_require__(90);
 
 var _ListComponent2 = _interopRequireDefault(_ListComponent);
 
+var _AddressComponent = __webpack_require__(231);
+
+var _AddressComponent2 = _interopRequireDefault(_AddressComponent);
+
 var _jquery = __webpack_require__(93);
 
 var _jquery2 = _interopRequireDefault(_jquery);
@@ -36644,10 +36644,20 @@ var App = function (_React$Component) {
     };
     return _this;
   }
-  //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
-
 
   _createClass(App, [{
+    key: 'componentWillMount',
+    value: function componentWillMount(coords, address) {
+      console.log('setting state...', coords, address);
+      location && address ? this.setState({
+        location: coords,
+        displayAddress: address
+      }) : null;
+    }
+
+    //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
+
+  }, {
     key: 'searchForCity',
     value: function searchForCity(e, keyword, location) {
       var context = this;
@@ -36665,10 +36675,13 @@ var App = function (_React$Component) {
         url: 'http://localhost:8080/api/menus/location',
         success: function success(response) {
           console.log('google maps request success', response);
-          context.setState({
+
+          context.componentWillMount(response.coordinates, response.formalAddress);
+
+          /*context.setState({
             location: response.coordinates,
             displayAddress: response.formalAddress
-          });
+          })*/
         },
         error: function error(err) {
           console.log('error with google maps request', err);
@@ -36682,10 +36695,10 @@ var App = function (_React$Component) {
         data: JSON.stringify(sendData),
         success: function success(res) {
           //parse out response, limits response to 10 results
-          context.setState({
+          /*context.setState({
             location: location,
             listOfVenues: JSON.parse(res).response.groups[0].items
-          });
+          }); */
         },
         error: function error(err) {
           console.log('Error posting search function');
@@ -36697,7 +36710,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
+      console.log('STATE =', this.state.location, this.state.displayAddress);
       return _react2.default.createElement(
         'div',
         null,
@@ -36708,6 +36721,7 @@ var App = function (_React$Component) {
         ),
         _react2.default.createElement('p', null),
         _react2.default.createElement(_SearchComponent2.default, { searchFunc: this.searchForCity.bind(this) }),
+        _react2.default.createElement(_AddressComponent2.default, { address: this.state.displayAddress }),
         _react2.default.createElement(_MapDisplayComponent2.default, { center: this.state.location }),
         _react2.default.createElement(_ListComponent2.default, { list: this.state.listOfVenues })
       );
@@ -36718,6 +36732,59 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddressComponent = function (_React$Component) {
+	_inherits(AddressComponent, _React$Component);
+
+	function AddressComponent() {
+		_classCallCheck(this, AddressComponent);
+
+		return _possibleConstructorReturn(this, (AddressComponent.__proto__ || Object.getPrototypeOf(AddressComponent)).apply(this, arguments));
+	}
+
+	_createClass(AddressComponent, [{
+		key: 'render',
+		value: function render() {
+			console.log(this.props);
+			return _react2.default.createElement(
+				'h3',
+				null,
+				' See what\'s trending in ',
+				this.props.address,
+				' '
+			);
+		}
+	}]);
+
+	return AddressComponent;
+}(_react2.default.Component);
+
+exports.default = AddressComponent;
 
 /***/ })
 /******/ ]);
