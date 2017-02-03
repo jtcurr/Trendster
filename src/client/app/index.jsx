@@ -9,7 +9,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: {lat:-25, lng: 131},
+      location: {
+        lat:37.7831708,
+        lng: -122.4100967
+      },
+      displayAddress: 'San Francisco, CA, USA',
       listOfVenues: [],
       imageObj: {}
     }
@@ -18,8 +22,29 @@ class App extends React.Component {
   searchForCity(e, keyword, location) {
     var context = this;
     e.preventDefault();
-    var sendData ={ keyword: keyword,
-        location: location}
+
+    var sendData ={
+      keyword: keyword,
+      location: location
+    }
+
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({location: sendData.location}),
+      url: 'http://localhost:8080/api/menus/location',
+      success: function(response) {
+        console.log('google maps request success', response);
+        context.setState({
+          location: response.coordinates,
+          displayAddress: response.formalAddress
+        })
+      },
+      error: function(err) {
+        console.log('error with google maps request', err);
+      }
+    })
+
     $.ajax({
       method: 'POST',
       contentType: 'application/json',
@@ -28,7 +53,7 @@ class App extends React.Component {
       success: function (res) {
         //parse out response, limits response to 10 results
         context.setState({
-          city: location,
+          location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items
         });
       },
@@ -39,16 +64,13 @@ class App extends React.Component {
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
-    const location = {
-      lat: 37.7831708,
-      lng: -122.4100967
-    }
+
     return (
       <div>
         <h1>Trendster</h1>
         <p></p>
         <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
-        <MapDisplayComponent center={ location } />
+        <MapDisplayComponent center={ this.state.location } />
         <ListComponent list={this.state.listOfVenues}/>
       </div>
     );
