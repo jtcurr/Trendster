@@ -10094,13 +10094,35 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var MapDisplayComponent = function (_React$Component) {
   _inherits(MapDisplayComponent, _React$Component);
 
-  function MapDisplayComponent() {
+  function MapDisplayComponent(props) {
     _classCallCheck(this, MapDisplayComponent);
 
-    return _possibleConstructorReturn(this, (MapDisplayComponent.__proto__ || Object.getPrototypeOf(MapDisplayComponent)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (MapDisplayComponent.__proto__ || Object.getPrototypeOf(MapDisplayComponent)).call(this, props));
+
+    _this.state = {
+      width: 600,
+      height: 300
+    };
+    return _this;
   }
 
   _createClass(MapDisplayComponent, [{
+    key: 'increaseSize',
+    value: function increaseSize() {
+      this.setState({
+        width: this.state.width + 50,
+        height: this.state.height + 50
+      });
+    }
+  }, {
+    key: 'decreaseSize',
+    value: function decreaseSize() {
+      this.setState({
+        width: this.state.width - 50,
+        height: this.state.height - 50
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var markers = [{
@@ -10109,9 +10131,20 @@ var MapDisplayComponent = function (_React$Component) {
           lng: -122.4100967
         }
       }];
+
       return _react2.default.createElement(
         'div',
-        { id: 'map', style: { width: 600, height: 300, background: 'red' } },
+        { id: 'map', style: { width: this.state.width, height: this.state.height, background: 'none' } },
+        _react2.default.createElement(
+          'button',
+          { id: 'zoomIn', onClick: this.increaseSize.bind(this) },
+          ' + '
+        ),
+        _react2.default.createElement(
+          'button',
+          { id: 'zoomOut', onClick: this.decreaseSize.bind(this) },
+          ' - '
+        ),
         _react2.default.createElement(_MapConfigComponent2.default, { center: this.props.center, markers: markers })
       );
     }

@@ -1,5 +1,6 @@
 body {
-	background-image: url("http://il8.picdn.net/shutterstock/videos/15059428/thumb/1.jpg");
+	background-image: url("http://www.quantumfsd.com/wp-content/uploads/2015/08/20e5aeacab1aa36b0d36ee68184db822.jpe");
+	background-size: 100%;
 }
 h1, h3 {
 	font-family: Courier;
@@ -7,6 +8,9 @@ h1, h3 {
 	color: #49fb35;
 }
 
+.zoom {
+	margin: 50px;
+}
 #search, #map {
 	width: 30%;
 	margin: 0 auto;
