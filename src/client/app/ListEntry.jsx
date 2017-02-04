@@ -9,7 +9,7 @@ var ListEntry = (props, key, {}) => {
       <div>
         {props.venueName.venue.location.address}
         <br></br>
-        <img src={ prefix + '100x100' + suffix } className='list-image'></img> 
+        <img src={ prefix + '300x300' + suffix } className='list-image'></img> 
       </div>
     </div>
 	)

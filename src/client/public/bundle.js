@@ -20730,7 +20730,7 @@ var ListEntry = function ListEntry(props, key, _ref) {
       null,
       props.venueName.venue.location.address,
       _react2.default.createElement('br', null),
-      _react2.default.createElement('img', { src: prefix + '100x100' + suffix, className: 'list-image' })
+      _react2.default.createElement('img', { src: prefix + '300x300' + suffix, className: 'list-image' })
     )
   );
 };
@@ -20805,7 +20805,7 @@ var MapConfigComponent = function (_React$Component) {
 				googleMapElement: _react2.default.createElement(
 					_reactGoogleMaps.GoogleMap,
 					{
-						defaultZoom: 13,
+						defaultZoom: 12,
 						defaultCenter: this.props.center,
 						options: { streetViewControl: false, mapTypeControl: false } },
 					markers
