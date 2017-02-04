@@ -20805,7 +20805,7 @@ var MapConfigComponent = function (_React$Component) {
 				googleMapElement: _react2.default.createElement(
 					_reactGoogleMaps.GoogleMap,
 					{
-						defaultZoom: 13,
+						defaultZoom: 12,
 						defaultCenter: this.props.center,
 						options: { streetViewControl: false, mapTypeControl: false } },
 					markers

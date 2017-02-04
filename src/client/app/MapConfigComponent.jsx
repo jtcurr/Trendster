@@ -32,7 +32,7 @@ class MapConfigComponent extends React.Component {
 				containerElement = { mapContainer }
 				googleMapElement = { 
 					<GoogleMap
-						defaultZoom={13}
+						defaultZoom={12}
 						defaultCenter={this.props.center}
 						options={{streetViewControl: false, mapTypeControl: false}}>
 						{ markers }
