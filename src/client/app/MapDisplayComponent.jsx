@@ -6,7 +6,11 @@ class MapDisplayComponent extends React.Component {
     super(props);
     this.state = {
       width: 600,
-      height: 300
+      height: 300,
+      location: {
+        lat:37.7831708,
+        lng: -122.4100967
+      }
     }
   }
 
@@ -25,6 +29,7 @@ class MapDisplayComponent extends React.Component {
   } 
 
   render() {
+
     const markers = [ 
       {
         location: {

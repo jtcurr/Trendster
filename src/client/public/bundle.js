@@ -10101,7 +10101,11 @@ var MapDisplayComponent = function (_React$Component) {
 
     _this.state = {
       width: 600,
-      height: 300
+      height: 300,
+      location: {
+        lat: 37.7831708,
+        lng: -122.4100967
+      }
     };
     return _this;
   }
@@ -10125,6 +10129,7 @@ var MapDisplayComponent = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+
       var markers = [{
         location: {
           lat: 37.7831708,
@@ -20539,15 +20544,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var MapConfigComponent = function (_React$Component) {
 	_inherits(MapConfigComponent, _React$Component);
 
-	function MapConfigComponent() {
+	function MapConfigComponent(props) {
 		_classCallCheck(this, MapConfigComponent);
 
-		return _possibleConstructorReturn(this, (MapConfigComponent.__proto__ || Object.getPrototypeOf(MapConfigComponent)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (MapConfigComponent.__proto__ || Object.getPrototypeOf(MapConfigComponent)).call(this, props));
+
+		_this.state = {
+			location: {
+				lat: 37.7831708,
+				lng: -122.4100967
+			}
+		};
+		return _this;
 	}
 
 	_createClass(MapConfigComponent, [{
 		key: 'render',
 		value: function render() {
+			console.log('props passed to map', this.props.center);
+			console.log('state of map', this.state.location);
 			var mapContainer = _react2.default.createElement('div', { style: { height: '100%', width: '100%' } });
 
 			var markers = this.props.markers.map(function (venue, i) {
@@ -36681,11 +36696,29 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentWillMount',
     value: function componentWillMount(coords, address) {
+      console.log('component will mount', this.state);
       console.log('setting state...', coords, address);
       location && address ? this.setState({
         location: coords,
         displayAddress: address
       }) : null;
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount(coords, address) {
+      console.log('component did mount');
+    }
+  }, {
+    key: 'ajaxSuccess',
+    value: function ajaxSuccess(response) {
+      console.log('google maps request success', response);
+
+      this.setState({
+        location: response.coordinates,
+        displayAddress: response.formalAddress
+      });
+
+      console.log('STATE AFTER AJAX', this.state.location, this.state.displayAddress);
     }
 
     //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
@@ -36706,16 +36739,7 @@ var App = function (_React$Component) {
         contentType: 'application/json',
         data: JSON.stringify({ location: sendData.location }),
         url: 'http://localhost:8080/api/menus/location',
-        success: function success(response) {
-          console.log('google maps request success', response);
-
-          // context.componentWillMount(response.coordinates, response.formalAddress);
-
-          context.setState({
-            location: response.coordinates,
-            displayAddress: response.formalAddress
-          });
-        },
+        success: this.ajaxSuccess.bind(this),
         error: function error(err) {
           console.log('error with google maps request', err);
         }
@@ -36742,7 +36766,6 @@ var App = function (_React$Component) {
         location: this.state.location,
         displayAddress: this.state.displayAddress
       });
-      console.log(this.state, 'state');
     }
     //the return passes in the searchForCity function into search component to receive user data
 

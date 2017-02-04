@@ -21,6 +21,7 @@ class App extends React.Component {
   }
 
   componentWillMount(coords, address) {
+    console.log('component will mount', this.state)
     console.log('setting state...', coords, address);
     location && address ? 
     this.setState({
@@ -29,6 +30,23 @@ class App extends React.Component {
     })
     :
     null;
+  }
+
+  componentDidMount(coords, address) {
+    console.log('component did mount')
+
+  }
+
+  ajaxSuccess(response) {
+    console.log('google maps request success', response);
+
+    this.setState({
+      location: response.coordinates,
+      displayAddress: response.formalAddress
+    })
+
+    console.log('STATE AFTER AJAX', this.state.location, this.state.displayAddress)
+
   }
 
   //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
@@ -46,17 +64,7 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({location: sendData.location}),
       url: 'http://localhost:8080/api/menus/location',
-      success: function(response) {
-        console.log('google maps request success', response);
-
-        // context.componentWillMount(response.coordinates, response.formalAddress);
-        
-        context.setState({
-          location: response.coordinates,
-          displayAddress: response.formalAddress
-        })
-
-      },
+      success: this.ajaxSuccess.bind(this),
       error: function(err) {
         console.log('error with google maps request', err);
       }
@@ -83,7 +91,7 @@ class App extends React.Component {
       location: this.state.location,
       displayAddress: this.state.displayAddress
     })
-    console.log(this.state, 'state')
+    
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
