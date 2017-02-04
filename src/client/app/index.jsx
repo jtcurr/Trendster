@@ -3,23 +3,73 @@ import reactDOM from 'react-dom';
 import SearchComponent from './SearchComponent.jsx';
 import MapDisplayComponent from './MapDisplayComponent.jsx';
 import ListComponent from './ListComponent.jsx';
+import AddressComponent from './AddressComponent.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: {lat:-25, lng: 131},
+      location: {
+        lat:37.7831708,
+        lng: -122.4100967
+      },
+      displayAddress: 'San Francisco, CA, USA',
       listOfVenues: [],
       imageObj: {}
     }
   }
+
+  componentWillMount(coords, address) {
+    console.log('component will mount', this.state)
+    console.log('setting state...', coords, address);
+    location && address ? 
+    this.setState({
+      location: coords,
+      displayAddress: address
+    })
+    :
+    null;
+  }
+
+  componentDidMount(coords, address) {
+    console.log('component did mount')
+
+  }
+
+  ajaxSuccess(response) {
+    console.log('google maps request success', response);
+
+    this.setState({
+      location: response.coordinates,
+      displayAddress: response.formalAddress
+    })
+
+    console.log('STATE AFTER AJAX', this.state.location, this.state.displayAddress)
+
+  }
+
   //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
   searchForCity(e, keyword, location) {
     var context = this;
     e.preventDefault();
-    var sendData ={ keyword: keyword,
-        location: location}
+
+    var sendData ={
+      keyword: keyword,
+      location: location
+    }
+
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({location: sendData.location}),
+      url: 'http://localhost:8080/api/menus/location',
+      success: this.ajaxSuccess.bind(this),
+      error: function(err) {
+        console.log('error with google maps request', err);
+      }
+    })
+
     $.ajax({
       method: 'POST',
       contentType: 'application/json',
@@ -27,28 +77,32 @@ class App extends React.Component {
       data: JSON.stringify(sendData),
       success: function (res) {
         //parse out response, limits response to 10 results
-        context.setState({
-          city: location,
+        /*context.setState({
+          location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items
-        });
+        }); */
       },
       error: function (err) {
         console.log('Error posting search function')
       }
     })
+
+    this.setState({
+      location: this.state.location,
+      displayAddress: this.state.displayAddress
+    })
+    
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
-    const location = {
-      lat: 37.7831708,
-      lng: -122.4100967
-    }
+    console.log('STATE =', this.state.location, this.state.displayAddress);
     return (
       <div>
         <h1>Trendster</h1>
-        <p></p>
-        <SearchComponent searchFunc={this.searchForCity.bind(this)}/>
-        <MapDisplayComponent center={ location } />
+        <p><i>Showing you the HOT spots</i></p>
+        <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>
+        <AddressComponent address= { this.state.displayAddress } />
+        <MapDisplayComponent center={ this.state.location } />
         <ListComponent list={this.state.listOfVenues}/>
       </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react';
 
 class SearchComponent extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -13,13 +12,13 @@ class SearchComponent extends React.Component {
    //clears out the search bar after submission
    render() {
      return (
-       <div>
+       <div id='search'>
          <form onSubmit={ (e) => {this.props.searchFunc(e, this.refs.keyword.value, this.refs.location.value)
           this.refs.keyword.value = ''
           this.refs.location.value = ''} }>
-           <input type='text' placeholder='Where are you?' ref='location' />
+           <input type='text' placeholder='Where are you?' ref='location' width='80' />
            <br></br>
-           <input type='text' placeholder='What are you looking for?' ref='keyword' />
+           <input type='text' placeholder='What are you looking for?' ref='keyword' width='80' />
            <button type='submit'>Submit</button>
          </form>
        </div>

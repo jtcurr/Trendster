@@ -1,0 +1,25 @@
+body {
+	background-image: url("https://0.s3.envato.com/files/182283873/3d%20Network%20Background%2001_preview1%20.JPG");
+	background-size: 100%;
+}
+h1, h3, p {
+	font-family: Courier;
+	text-align: center;
+	color: #FF7F50;
+}
+
+input {
+	font-size: 20px;
+	width: 400px;
+}
+.zoom {
+	margin: 50px;
+}
+#search {
+	width: 50%;
+	margin: 0 auto;
+}
+#map {
+	width: 30%;
+	margin: 0 auto;
+}

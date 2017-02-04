@@ -2,7 +2,19 @@ import React from 'react';
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 
 class MapConfigComponent extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			location: {
+		        lat:37.7831708,
+		        lng: -122.4100967
+		     }
+      	}
+	}
+	
 	render() {
+		console.log('props passed to map', this.props.center)
+		console.log('state of map', this.state.location)
 		const mapContainer = <div style={{ height: '100%', width: '100%' }}></div>;
 
 		const markers = this.props.markers.map((venue, i) => {
@@ -20,7 +32,7 @@ class MapConfigComponent extends React.Component {
 				containerElement = { mapContainer }
 				googleMapElement = { 
 					<GoogleMap
-						defaultZoom={15}
+						defaultZoom={13}
 						defaultCenter={this.props.center}
 						options={{streetViewControl: false, mapTypeControl: false}}>
 						{ markers }

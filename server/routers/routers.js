@@ -22,6 +22,31 @@ router.post('/api/menus', function(req, res) {
     console.log(err);
     res.json(err);
   })
+  
+});
+
+router.post('/api/menus/location', function(req, res) {
+  var baseGoog = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  var locGoog = req.body.location;
+  var keyGoog = '&key=AIzaSyAhciEsWzSnzUfMBUMBkdkb6sjjl6Chp1k';
+  var urlGoog = baseGoog + req.body.location + keyGoog;
+
+  requestPromise(urlGoog)
+  .then(function(data) {
+
+    var results = JSON.parse(data).results[0];
+    var googleResults = {
+      formalAddress: results.formatted_address,
+      coordinates: results.geometry.location
+    }
+
+    console.log(googleResults);
+    res.json(googleResults);
+  })
+  .catch(function(err) {
+    console.log(err);
+    res.json(err);
+  })
 });
 
 module.exports = router;
