@@ -23,3 +23,12 @@ input {
 	width: 30%;
 	margin: 0 auto;
 }
+
+.list-item, a {
+	padding-top: 20px;
+	font-family: Courier;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+
