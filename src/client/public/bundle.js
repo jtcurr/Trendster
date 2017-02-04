@@ -20718,7 +20718,7 @@ var ListEntry = function ListEntry(props, key, _ref) {
   var prefix = props.venueName.venue.photos.groups[0].items[0].prefix;
   var suffix = props.venueName.venue.photos.groups[0].items[0].suffix;
   return _react2.default.createElement(
-    'li',
+    'div',
     { className: 'list-item' },
     _react2.default.createElement(
       'a',
@@ -20726,15 +20726,11 @@ var ListEntry = function ListEntry(props, key, _ref) {
       props.venueName.venue.name
     ),
     _react2.default.createElement(
-      'ul',
+      'div',
       null,
-      _react2.default.createElement(
-        'li',
-        null,
-        props.venueName.venue.location.address,
-        _react2.default.createElement('br', null),
-        _react2.default.createElement('img', { src: prefix + '100x100' + suffix, className: 'list-image' })
-      )
+      props.venueName.venue.location.address,
+      _react2.default.createElement('br', null),
+      _react2.default.createElement('img', { src: prefix + '100x100' + suffix, className: 'list-image' })
     )
   );
 };
