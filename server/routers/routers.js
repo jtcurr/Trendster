@@ -8,7 +8,7 @@ var baseUrl = 'https://api.foursquare.com/v2/';
 var endPoint = 'venues/explore/?';
 var params = 'near=';
 var photos = '&venuePhotos=1';
-var auth = '&client_id='+keys.client_Id+'&client_secret='+ keys.client_Secret+'&v=20170129'+'&limit=10'+'&query=';
+var auth = '&client_id='+keys.client_Id+'&client_secret='+ keys.client_Secret+'&v=20170129'+'&limit=12'+'&query=';
 
 router.post('/api/menus', function(req, res) {
 	//if the location is two words, the foursquare api requires a '+' in between both words
