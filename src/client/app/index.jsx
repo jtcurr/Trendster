@@ -49,12 +49,12 @@ class App extends React.Component {
       success: function(response) {
         console.log('google maps request success', response);
 
-        context.componentWillMount(response.coordinates, response.formalAddress);
+        // context.componentWillMount(response.coordinates, response.formalAddress);
         
-        /*context.setState({
+        context.setState({
           location: response.coordinates,
           displayAddress: response.formalAddress
-        })*/
+        })
 
       },
       error: function(err) {
@@ -78,6 +78,12 @@ class App extends React.Component {
         console.log('Error posting search function')
       }
     })
+
+    this.setState({
+      location: this.state.location,
+      displayAddress: this.state.displayAddress
+    })
+    console.log(this.state, 'state')
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
@@ -85,7 +91,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Trendster</h1>
-        <p></p>
+        <p><i>Showing you the HOT spots</i></p>
         <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>
         <AddressComponent address= { this.state.displayAddress } />
         <MapDisplayComponent center={ this.state.location } />

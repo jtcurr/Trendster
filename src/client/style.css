@@ -2,16 +2,24 @@ body {
 	background-image: url("http://www.quantumfsd.com/wp-content/uploads/2015/08/20e5aeacab1aa36b0d36ee68184db822.jpe");
 	background-size: 100%;
 }
-h1, h3 {
+h1, h3, p {
 	font-family: Courier;
 	text-align: center;
 	color: #49fb35;
 }
 
+input {
+	font-size: 20px;
+	width: 400px;
+}
 .zoom {
 	margin: 50px;
 }
-#search, #map {
+#search {
+	width: 50%;
+	margin: 0 auto;
+}
+#map {
 	width: 30%;
 	margin: 0 auto;
 }

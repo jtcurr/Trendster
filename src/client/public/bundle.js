@@ -10213,9 +10213,9 @@ var SearchComponent = function (_React$Component) {
               _this2.refs.keyword.value = '';
               _this2.refs.location.value = '';
             } },
-          _react2.default.createElement('input', { type: 'text', placeholder: 'Where are you?', ref: 'location' }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Where are you?', ref: 'location', width: '80' }),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'text', placeholder: 'What are you looking for?', ref: 'keyword' }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'What are you looking for?', ref: 'keyword', width: '80' }),
           _react2.default.createElement(
             'button',
             { type: 'submit' },
@@ -20565,7 +20565,7 @@ var MapConfigComponent = function (_React$Component) {
 				googleMapElement: _react2.default.createElement(
 					_reactGoogleMaps.GoogleMap,
 					{
-						defaultZoom: 15,
+						defaultZoom: 13,
 						defaultCenter: this.props.center,
 						options: { streetViewControl: false, mapTypeControl: false } },
 					markers
@@ -36709,12 +36709,12 @@ var App = function (_React$Component) {
         success: function success(response) {
           console.log('google maps request success', response);
 
-          context.componentWillMount(response.coordinates, response.formalAddress);
+          // context.componentWillMount(response.coordinates, response.formalAddress);
 
-          /*context.setState({
+          context.setState({
             location: response.coordinates,
             displayAddress: response.formalAddress
-          })*/
+          });
         },
         error: function error(err) {
           console.log('error with google maps request', err);
@@ -36737,6 +36737,12 @@ var App = function (_React$Component) {
           console.log('Error posting search function');
         }
       });
+
+      this.setState({
+        location: this.state.location,
+        displayAddress: this.state.displayAddress
+      });
+      console.log(this.state, 'state');
     }
     //the return passes in the searchForCity function into search component to receive user data
 
@@ -36752,7 +36758,15 @@ var App = function (_React$Component) {
           null,
           'Trendster'
         ),
-        _react2.default.createElement('p', null),
+        _react2.default.createElement(
+          'p',
+          null,
+          _react2.default.createElement(
+            'i',
+            null,
+            'Showing you the HOT spots'
+          )
+        ),
         _react2.default.createElement(_SearchComponent2.default, { searchFunc: this.searchForCity.bind(this) }),
         _react2.default.createElement(_AddressComponent2.default, { address: this.state.displayAddress }),
         _react2.default.createElement(_MapDisplayComponent2.default, { center: this.state.location }),
