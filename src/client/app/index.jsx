@@ -16,25 +16,8 @@ class App extends React.Component {
       },
       displayAddress: 'San Francisco, CA, USA',
       listOfVenues: [],
-      imageObj: {}
+      markers: []
     }
-  }
-
-  componentWillMount(coords, address) {
-    console.log('component will mount', this.state)
-    console.log('setting state...', coords, address);
-    location && address ? 
-    this.setState({
-      location: coords,
-      displayAddress: address
-    })
-    :
-    null;
-  }
-
-  componentDidMount(coords, address) {
-    console.log('component did mount')
-
   }
 
   ajaxSuccess(response) {
@@ -43,10 +26,7 @@ class App extends React.Component {
     this.setState({
       location: response.coordinates,
       displayAddress: response.formalAddress
-    })
-
-    console.log('STATE AFTER AJAX', this.state.location, this.state.displayAddress)
-
+    });
   }
 
   //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
@@ -77,10 +57,31 @@ class App extends React.Component {
       data: JSON.stringify(sendData),
       success: function (res) {
         //parse out response, limits response to 10 results
-        /*context.setState({
+        console.log(JSON.parse(res).response);
+        
+        var venueArr = JSON.parse(res).response.groups[0].items;
+        var markers = [];
+        venueArr.forEach(function(item) {
+          var itemStorage = {};
+
+          itemStorage.name = item.venue.name;
+          itemStorage.location = {
+            lat: item.venue.location.lat,
+            lng: item.venue.location.lng
+          }
+
+          markers.push(itemStorage);
+        });
+        console.log(markers);
+
+        
+        context.setState({
           location: location,
-          listOfVenues: JSON.parse(res).response.groups[0].items
-        }); */
+          listOfVenues: JSON.parse(res).response.groups[0].items,
+          markers: markers
+        });
+
+
       },
       error: function (err) {
         console.log('Error posting search function')
@@ -102,7 +103,7 @@ class App extends React.Component {
         <p><i>Showing you the HOT spots</i></p>
         <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>
         <AddressComponent address= { this.state.displayAddress } />
-        <MapDisplayComponent center={ this.state.location } />
+        <MapDisplayComponent center={ this.state.location } markers={ this.state.markers } />
         <ListComponent list={this.state.listOfVenues}/>
       </div>
     );
