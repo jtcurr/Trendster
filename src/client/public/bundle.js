@@ -20730,7 +20730,7 @@ var ListEntry = function ListEntry(props, key, _ref) {
       null,
       props.venueName.venue.location.address,
       _react2.default.createElement('br', null),
-      _react2.default.createElement('img', { src: prefix + '100x100' + suffix, className: 'list-image' })
+      _react2.default.createElement('img', { src: prefix + '300x300' + suffix, className: 'list-image' })
     )
   );
 };
