@@ -1,12 +1,12 @@
-# Project Name
+# Trendster
 
-> Pithy project description
+> Showing you the HOT spots
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Daniel
+  - __Scrum Master__: Jon E.
+  - __Development Team Members__: Ahmed, John C.
 
 ## Table of Contents
 
@@ -23,7 +23,9 @@
 > Some usage instructions
 
 ## Requirements
+- tbd...
 
+(example format)
 - Node 0.10.x
 - Redis 2.6.x
 - Postgresql 9.1.x
@@ -35,6 +37,8 @@
 ### Installing Dependencies
 
 From within the root directory:
+
+- npm install (i think this it??)
 
 ```sh
 sudo npm install -g bower
