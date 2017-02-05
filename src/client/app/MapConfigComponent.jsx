@@ -13,10 +13,7 @@ class MapConfigComponent extends React.Component {
 	}
 	
 	render() {
-		console.log('props passed to map', this.props.center)
-		console.log('state of map', this.state.location)
 		const mapContainer = <div style={{ height: '100%', width: '100%' }}></div>;
-
 		const markers = this.props.markers.map((venue, i) => {
 			const marker = {
 				position: {
@@ -33,7 +30,7 @@ class MapConfigComponent extends React.Component {
 				googleMapElement = { 
 					<GoogleMap
 						defaultZoom={12}
-						defaultCenter={this.props.center}
+						ref = {(map) => map && map.panTo(this.props.center)}
 						options={{streetViewControl: false, mapTypeControl: false}}>
 						{ markers }
 					</GoogleMap>

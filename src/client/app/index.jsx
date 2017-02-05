@@ -56,8 +56,6 @@ class App extends React.Component {
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
       success: function (res) {
-        //parse out response, limits response to 10 results
-        console.log(JSON.parse(res).response);
         
         var venueArr = JSON.parse(res).response.groups[0].items;
         var markers = [];
@@ -72,15 +70,12 @@ class App extends React.Component {
 
           markers.push(itemStorage);
         });
-        console.log(markers);
 
-        
         context.setState({
           location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items,
           markers: markers
         });
-
 
       },
       error: function (err) {
@@ -109,6 +104,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 reactDOM.render(<App />, document.getElementById('app'));
