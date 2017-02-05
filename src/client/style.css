@@ -11,10 +11,29 @@ h1, h3, p {
 	font-weight: bold;
 }
 
-input {
+.recentSearches {
+	position: absolute;
+	float: left;
+	font-family: Courier;
+	color: #FF7F50;
+	font-weight: bold;
+}
+
+.searchInput {
 	font-size: 20px;
 	width: 400px;
 }
+
+.signup {
+	font-size: 10px;
+	width: 150px;
+}
+
+.login {
+	font-size: 10px;
+	width: 150px;
+}
+
 .zoom {
 	margin: 50px;
 }
@@ -40,4 +59,3 @@ img {
 	width: 75%;
 	height: 75%;
 }
-

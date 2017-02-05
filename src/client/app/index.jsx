@@ -6,6 +6,12 @@ import ListComponent from './ListComponent.jsx';
 import AddressComponent from './AddressComponent.jsx';
 import $ from 'jquery';
 
+//THIS.STATE
+  //LOCATION: HOLDS LATTITUDE AND LONGITUDE. DEFAULTS SAN FRANCISCO.
+  //LOGIN: HOLDS USERNAME, PASSWORD, AND RECENT QUERIES.
+  //LIST OF VENUES: ARRAY OF VENUES THAT COME BACK FROM FOURSQUARE.
+  //MARKERS: CREATES ARRAY OF LATTITUDE AND LONGITUDE OBJECTS FOR MAP.
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +20,11 @@ class App extends React.Component {
         lat:37.7831708,
         lng: -122.4100967
       },
+      login: {
+        username: '',
+        password: '',
+        recentQueries: []
+      },
       displayAddress: 'San Francisco, CA, USA',
       listOfVenues: [],
       markers: []
@@ -21,17 +32,105 @@ class App extends React.Component {
   }
 
   ajaxSuccess(response) {
-    console.log('google maps request success', response);
-
+    //UPDATES LOCATION AND ADDRESS
     this.setState({
       location: response.coordinates,
       displayAddress: response.formalAddress
     });
   }
 
+  //SIGNS UP USER
+  signUpUser(e, username, password) {
+    e.preventDefault();
+    var context = this;
+    //MAKES REQUEST TO SIGN UP NEW USER
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      url: 'http://localhost:8080/api/menus/signup',
+      success: function(data) {
+        //LOG IN NEW USER IF CALL IS SUCCESSFUL
+        context.logInUser(e, data.username, data.password);
+      },
+      error: function(err) {
+        console.log('User not stored in db because they already exist');
+      }
+    })
+  }
+
+  //LOGS IN USER
+  logInUser(e, username, password) {
+    e.preventDefault();
+    var context = this;
+    //MAKES REQUEST TO LOG IN USER
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      url: 'http://localhost:8080/api/menus/login',
+      success: function(data) {
+        //UPDATES RECENT QUERIES AND USER
+        var loginInfo = {
+          username: data[0].username,
+          password: data[0].password,
+          recentQueries: data[0].recentQueries
+        }
+        //USES LOGIN INFO TO RESET THE STATE
+        context.setState({
+          login: loginInfo
+        })
+      },
+      error: function(err) {
+        console.log('User not found in db')
+      }
+    })
+  }
+
+  //UPDATES USERS RECENT SEARCHES
+  updateUser(e, location, keyword) {
+    e.preventDefault();
+    var context = this;
+    //UPDATE CURRENT RECENT SEARCHES
+    this.state.login.recentQueries.push(location + ': ' + keyword);
+    //MAKE REQUEST WITH CURRENT RECENT SEARCHES
+    $.ajax({
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: this.state.login.username,
+        recentQueries: this.state.login.recentQueries
+      }),
+      url: 'http://localhost:8080/api/menus/updateUser',
+      success: function(data) {
+        //RESET STATE WITH CURRENT RECENT SEARCHES
+        context.setState({
+          login: {
+            username: data.username,
+            password: data.password,
+            recentQueries: data.recentQueries
+          }
+        })
+      },
+      error: function(err) {
+        console.log('User not found in db')
+      }
+    })
+  }
+
   //Takes in a keyword and location from SearchComponent and does an ajax call through routers.js
   searchForCity(e, keyword, location) {
     var context = this;
+    //IF USER IS LOGGED IN... UPDATE THE RECENT SEARCHES
+    if(this.state.login.username) {
+      this.updateUser(e, location, keyword);
+    }
     e.preventDefault();
 
     var sendData ={
@@ -39,6 +138,7 @@ class App extends React.Component {
       location: location
     }
 
+    //MAKES A REQUEST TO GOOGLE MAPS API
     $.ajax({
       method: 'POST',
       contentType: 'application/json',
@@ -50,15 +150,22 @@ class App extends React.Component {
       }
     })
 
+    //MAKES A REQUEST TO FOURSQUARE API
     $.ajax({
       method: 'POST',
       contentType: 'application/json',
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
       success: function (res) {
+<<<<<<< HEAD
+        //PARSE OUT THE RESULTS INTO AN ARRAY
+=======
         
+>>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
         var venueArr = JSON.parse(res).response.groups[0].items;
         var markers = [];
+
+        //GOES THROUGH ARRAY OF VENUES AND CREATES NEW LATTITUDE AND LONGITUDE OF VENUE OBJECTS
         venueArr.forEach(function(item) {
           var itemStorage = {};
 
@@ -71,29 +178,68 @@ class App extends React.Component {
           markers.push(itemStorage);
         });
 
+<<<<<<< HEAD
+        //UPDATES STATE WITH NEW VENUE LOCATIONS AND MARKERS
+=======
+>>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
         context.setState({
           location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items,
           markers: markers
         });
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
       },
       error: function (err) {
         console.log('Error posting search function')
       }
     })
 
+    //UPDATES STATE WITH NEW VENUE LOCATIONS AND MARKERS
     this.setState({
       location: this.state.location,
       displayAddress: this.state.displayAddress
     })
-    
+
   }
-  //the return passes in the searchForCity function into search component to receive user data
   render () {
-    console.log('STATE =', this.state.location, this.state.displayAddress);
+    //FIRST DIV
+      //FORM IS FOR SIGNING UP AND LOGGING IN USERS
+
+    //SEARCH COMPONENT
+      //passes in the searchForCity function into search component to receive user data
+
+    //ADDRESS COMPONENT
+      //PASSES IN THE CURRENT ADDRESS BASED ON LOCATION
+
+    //MAP DISPLAY COMPONENT
+      //PASSES IN LOCATION AND ARRAY OF MARKERS
+
+    //LIST COMPONENT
+      //TAKES IN THE ARRAY OF VENUES
+
     return (
       <div>
+        <div>
+          <form onSubmit={(e) => {e.preventDefault()}}>
+            <input className="signup" placeholder='Username' ref="signUpUsername" type="text"/><br></br>
+            <input className="signup" placeholder='Password' ref="signUpPassword" type="password"/><br></br>
+            <button type="button" onClick={(e) => {this.signUpUser(e, this.refs.signUpUsername.value, this.refs.signUpPassword.value);
+                                                  this.refs.signUpUsername.value = '';
+                                                  this.refs.signUpPassword.value = '';}}>Sign up</button>
+            <button type="button" onClick={(e) => {this.logInUser(e, this.refs.signUpUsername.value, this.refs.signUpPassword.value);
+                                                  this.refs.signUpUsername.value = '';
+                                                  this.refs.signUpPassword.value = '';}}>Log in</button>
+          </form>
+          <div className="recentSearches">
+            <p>Recent Searches</p>
+            <ul>{this.state.login.recentQueries.map((query) => {
+                return <li>{query}</li>
+              })}</ul>
+          </div>
+        </div>
         <h1>Trendster</h1>
         <p><i>Showing you the HOT spots</i></p>
         <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>

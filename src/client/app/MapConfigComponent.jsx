@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 
+//CREATES MAP
 class MapConfigComponent extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,9 +12,16 @@ class MapConfigComponent extends React.Component {
 		     }
       	}
 	}
-	
+
 	render() {
+<<<<<<< HEAD
+		//CREATES DIV FOR THE MAP
 		const mapContainer = <div style={{ height: '100%', width: '100%' }}></div>;
+
+		//CREATE A NEW MARKER FOR EACH ELEMENT IN THE MARKERS ARRAY AND RETURNS THAT MARKER
+=======
+		const mapContainer = <div style={{ height: '100%', width: '100%' }}></div>;
+>>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
 		const markers = this.props.markers.map((venue, i) => {
 			const marker = {
 				position: {
@@ -21,13 +29,15 @@ class MapConfigComponent extends React.Component {
 					lng: venue.location.lng
 				}
 			}
-
 			return <Marker key={i} {...marker} />
 		})
+
+		//CREATES THE MAP
+			//REF RE-CENTERS THE MAP WHEN LOCATION CHANGES
 		return (
 			<GoogleMapLoader
 				containerElement = { mapContainer }
-				googleMapElement = { 
+				googleMapElement = {
 					<GoogleMap
 						defaultZoom={12}
 						ref = {(map) => map && map.panTo(this.props.center)}
