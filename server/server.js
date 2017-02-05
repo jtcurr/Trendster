@@ -5,7 +5,6 @@ var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var routing = require('./routers/routers.js');
 var path = require('path');
-
 var app = express();
 
 app.set('views', __dirname + '/../src/client');
@@ -17,6 +16,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(routing);
 
+//SENDS INDEX.HTML TO CLIENT ON FIRST REQUEST TO OUR PAGE
 app.get('/', function(req, res) {
 	res.redirect('/api/menus');
   res.render('../index.html');

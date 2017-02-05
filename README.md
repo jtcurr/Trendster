@@ -21,9 +21,15 @@
 ## Usage
 
 > Some usage instructions
+//run mongod to start database
+//run mongo in new tab to see inside database
+//run npm start in new tab to start server
+//run npm run dev to start webpack
+//open localhost:8080 in browser to open Trendster
 
 ## Requirements
-- tbd...
+- see package.json
+ - we use Mongo, Express, React (react-google-maps), and Node
 
 (example format)
 - Node 0.10.x
@@ -34,17 +40,18 @@
 
 ## Development
 
+- fourSquare
+- react-google-maps
+- googleMaps
+- infoWindows
+
+
 ### Installing Dependencies
 
 From within the root directory:
 
-- npm install (i think this it??)
+- npm install
 
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
 
 ### Roadmap
 
