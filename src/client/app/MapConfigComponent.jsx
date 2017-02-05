@@ -14,10 +14,14 @@ class MapConfigComponent extends React.Component {
 	}
 
 	render() {
+<<<<<<< HEAD
 		//CREATES DIV FOR THE MAP
 		const mapContainer = <div style={{ height: '100%', width: '100%' }}></div>;
 
 		//CREATE A NEW MARKER FOR EACH ELEMENT IN THE MARKERS ARRAY AND RETURNS THAT MARKER
+=======
+		const mapContainer = <div style={{ height: '100%', width: '100%' }}></div>;
+>>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
 		const markers = this.props.markers.map((venue, i) => {
 			const marker = {
 				position: {
