@@ -2,6 +2,8 @@ var express = require('express');
 var requestPromise = require('request-promise');
 var keys = require('../fourSquare/config/apiKeys.js');
 var router = express.Router();
+var mongoose = require('mongoose');
+var db = require('../db/mongoDB.js');
 
 
 var baseUrl = 'https://api.foursquare.com/v2/';
@@ -22,7 +24,7 @@ router.post('/api/menus', function(req, res) {
     console.log(err);
     res.json(err);
   })
-  
+
 });
 
 router.post('/api/menus/location', function(req, res) {
@@ -47,6 +49,15 @@ router.post('/api/menus/location', function(req, res) {
     console.log(err);
     res.json(err);
   })
+});
+
+router.post('/api/menus/signup', function(req, res) {
+	var user = new db.users({name: req.body.username, password: req.body.password, recentQueries: []});
+	user.save();
+});
+
+router.post('/api/menus/login', function(req, res) {
+	console.log('log in attempt')
 });
 
 module.exports = router;
