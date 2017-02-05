@@ -91,14 +91,13 @@ class App extends React.Component {
   }
   //the return passes in the searchForCity function into search component to receive user data
   render () {
-    console.log('STATE =', this.state.location, this.state.displayAddress);
     return (
       <div>
         <h1>Trendster</h1>
         <p><i>Showing you the HOT spots</i></p>
         <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>
         <AddressComponent address= { this.state.displayAddress } />
-        <MapDisplayComponent center={ this.state.location } markers={ this.state.markers } />
+        <MapDisplayComponent center={ this.state.location } markers={ this.state.markers } venues={ this.state.listOfVenues }/>
         <ListComponent list={this.state.listOfVenues}/>
       </div>
     );
