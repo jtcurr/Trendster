@@ -30,7 +30,7 @@ class MapConfigComponent extends React.Component {
 				googleMapElement = { 
 					<GoogleMap
 						defaultZoom={12}
-						ref = {(map) => map && map.panTo(parseInt(this.props.center.lat), parseInt(this.props.center.lng))}
+						ref = {(map) => map && map.panTo(this.props.center)}
 						options={{streetViewControl: false, mapTypeControl: false}}>
 						{ markers }
 					</GoogleMap>
