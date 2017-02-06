@@ -44,6 +44,9 @@ var load = function() {
        .duration(2000)
        .attrTween("d", d3Animation);
   arcs.append("text")
+       .transition()
+       .ease(d3.easeLinear)
+       .duration(2000)
        .attr("transform", function(d) { return "translate (" + arc.centroid(d) + ")"})
        .attr("text-anchor", "middle")
        .attr("font-size", "1.5em")
