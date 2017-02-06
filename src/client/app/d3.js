@@ -15,7 +15,7 @@ var load = function() {
 
   var r  = 140;
 
-  var color = d3.scaleOrdinal()
+  var colors = d3.scaleOrdinal()
               .range(["#FFA500", "#DAA520", "#FF8C00", "#A52A2A", "#DC143C", "#B22222", "#FF4500"])
 
   var canvas = d3.select("#d3").append('svg')
@@ -28,25 +28,25 @@ var load = function() {
             .innerRadius(250)
             .outerRadius(r);
 
-  var pie = d3.pie()
+  var chart = d3.pie()
             .value(function(d) { return d; });
 
   var arcs = group.selectAll(".arc")
-             .data(pie(data))
+             .data(chart(data))
              .enter()
              .append("g")
              .attr("class", "arc")
   arcs.append("path")
        .attr("d", arc)
-       .attr("fill", function(d) {return color(d.data);})
+       .attr("fill", function(d) {return colors(d.data);})
        .transition()
        .ease(d3.easeLinear)
-       .duration(2000)
+       .duration(3000)
        .attrTween("d", d3Animation);
   arcs.append("text")
        .transition()
        .ease(d3.easeLinear)
-       .duration(2000)
+       .duration(3000)
        .attr("transform", function(d) { return "translate (" + arc.centroid(d) + ")"})
        .attr("text-anchor", "middle")
        .attr("font-size", "1.5em")
@@ -56,10 +56,10 @@ var load = function() {
         return name
       })
 
-function d3Animation(b) {
-  b.innerRadius = 0;
-  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-  return function(t) { return arc(i(t)); };
-}
+  function d3Animation(b) {
+    b.innerRadius = 0;
+    var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+    return function(t) { return arc(i(t)); };
+  }
 }
 window.load = load;
