@@ -157,11 +157,7 @@ class App extends React.Component {
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
       success: function (res) {
-<<<<<<< HEAD
         //PARSE OUT THE RESULTS INTO AN ARRAY
-=======
-        
->>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
         var venueArr = JSON.parse(res).response.groups[0].items;
         var markers = [];
 
@@ -177,20 +173,12 @@ class App extends React.Component {
 
           markers.push(itemStorage);
         });
-
-<<<<<<< HEAD
         //UPDATES STATE WITH NEW VENUE LOCATIONS AND MARKERS
-=======
->>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
         context.setState({
           location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items,
           markers: markers
         });
-<<<<<<< HEAD
-=======
-
->>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
       },
       error: function (err) {
         console.log('Error posting search function')
@@ -205,8 +193,6 @@ class App extends React.Component {
 
   }
   render () {
-<<<<<<< HEAD
-=======
     //FIRST DIV
       //FORM IS FOR SIGNING UP AND LOGGING IN USERS
 
@@ -222,7 +208,6 @@ class App extends React.Component {
     //LIST COMPONENT
       //TAKES IN THE ARRAY OF VENUES
 
->>>>>>> 0f39eaa60cc23d8a26b94169e50b4f00944004d5
     return (
       <div>
         <div>
