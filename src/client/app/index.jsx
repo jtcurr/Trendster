@@ -157,11 +157,7 @@ class App extends React.Component {
       url:'http://localhost:8080/api/menus',
       data: JSON.stringify(sendData),
       success: function (res) {
-<<<<<<< HEAD
         //PARSE OUT THE RESULTS INTO AN ARRAY
-=======
-        
->>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
         var venueArr = JSON.parse(res).response.groups[0].items;
         var markers = [];
 
@@ -177,20 +173,12 @@ class App extends React.Component {
 
           markers.push(itemStorage);
         });
-
-<<<<<<< HEAD
         //UPDATES STATE WITH NEW VENUE LOCATIONS AND MARKERS
-=======
->>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
         context.setState({
           location: location,
           listOfVenues: JSON.parse(res).response.groups[0].items,
           markers: markers
         });
-<<<<<<< HEAD
-=======
-
->>>>>>> 4ab017d344a3108a299b259ddfa225dc0a7024eb
       },
       error: function (err) {
         console.log('Error posting search function')
@@ -244,7 +232,7 @@ class App extends React.Component {
         <p><i>Showing you the HOT spots</i></p>
         <SearchComponent searchFunc={ this.searchForCity.bind(this) }/>
         <AddressComponent address= { this.state.displayAddress } />
-        <MapDisplayComponent center={ this.state.location } markers={ this.state.markers } />
+        <MapDisplayComponent center={ this.state.location } markers={ this.state.markers } venues={ this.state.listOfVenues }/>
         <ListComponent list={this.state.listOfVenues}/>
       </div>
     );
