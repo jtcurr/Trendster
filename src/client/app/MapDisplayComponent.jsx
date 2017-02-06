@@ -1,6 +1,7 @@
 import React from 'react';
 import MapConfigComponent from './MapConfigComponent.jsx';
 
+//DISPLAYS MAP WITH DEFAULT LOCATION
 class MapDisplayComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class MapDisplayComponent extends React.Component {
     }
   }
 
+  //RELATES TO THE BUTTONS ON THE OUTSIDE OF THE MAP TO MAKE MAP BIGGER OR SMALLER
   increaseSize() {
     this.setState({
       width: this.state.width + 50,
@@ -26,11 +28,11 @@ class MapDisplayComponent extends React.Component {
       width: this.state.width - 50,
       height: this.state.height - 50
     });
-  } 
+  }
 
+  //RECENTERS MAP
   render() {
-
-    const markers = [ 
+    const markers = [
       {
         location: {
           lat: 37.7831708,
@@ -50,4 +52,3 @@ class MapDisplayComponent extends React.Component {
 }
 
 export default MapDisplayComponent;
-

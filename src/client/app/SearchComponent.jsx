@@ -16,9 +16,9 @@ class SearchComponent extends React.Component {
          <form onSubmit={ (e) => {this.props.searchFunc(e, this.refs.keyword.value, this.refs.location.value)
           this.refs.keyword.value = ''
           this.refs.location.value = ''} }>
-           <input type='text' placeholder='Where are you?' ref='location' width='80' />
+           <input className="searchInput" type='text' placeholder='Where are you?' ref='location' width='80' />
            <br></br>
-           <input type='text' placeholder='What are you looking for?' ref='keyword' width='80' />
+           <input className="searchInput" type='text' placeholder='What are you looking for?' ref='keyword' width='80' />
            <button type='submit'>Submit</button>
          </form>
        </div>
