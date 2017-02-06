@@ -20658,7 +20658,7 @@ var MapConfigComponent = function (_React$Component) {
 						ref: function ref(map) {
 							return map && map.panTo(_this2.props.center);
 						},
-						options: { streetViewControl: false, mapTypeControl: false } },
+						options: { streetViewControl: true, mapTypeControl: true } },
 					markers
 				) });
 		}
