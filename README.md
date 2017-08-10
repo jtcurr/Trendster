@@ -1,6 +1,6 @@
 # Trendster
 
-<img src="images/trendster.png" width="300"/>
+<img src="images/trendster.png" width="500"/>
 
 > Showing you the HOT spots
 
